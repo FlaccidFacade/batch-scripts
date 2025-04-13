@@ -31,9 +31,5 @@ jobs:
         run: |
           $output = & cmd /c "ls -a"
           echo $output
-          $normalizedOutput = $output -replace '\s+', ' '  # Normalize whitespace
-          if ($normalizedOutput -notlike "*Directory of*") {
-              Write-Error "ls.bat did not output expected directory listing"
-              exit 1
-          }
-        shell: pwsh
+          .\doesItContain.bat $output "Directory of"
+        shell: cmd
