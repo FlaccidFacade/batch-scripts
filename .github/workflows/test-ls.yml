@@ -1,0 +1,60 @@
+name: Test ls.bat on Windows
+
+on:
+  push:
+    paths:
+      - 'ls.bat'
+      - '.github/workflows/test-ls.yml'
+  workflow_dispatch:
+
+jobs:
+  test-ls-bat:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install sed
+        run: choco install gnuwin32-sed -y
+
+
+
+      - name: Run ls.bat with -l flag
+        run: |
+          echo Testing -l flag
+          call ls.bat -l
+
+      - name: Validate output contains file list
+        run: |
+          $output = & cmd /c "call ls.bat -l"
+          if ($output -notmatch "Directory of") {
+              Write-Error "ls.bat did not output expected directory listing"
+              exit 1
+          }
+
+      - name: Run ls.bat with -a flag
+        run: |
+          echo Testing -a flag
+          call ls.bat -a
+    
+      - name: Validate output contains file list
+        run: |
+          $output = & cmd /c "call ls.bat -a"
+          if ($output -notmatch "Directory of") {
+              Write-Error "ls.bat did not output expected directory listing"
+              exit 1
+          }
+
+      - name: Run ls.bat with -l -a -h
+        run: |
+          echo Testing all flags
+          call ls.bat -l -a -h
+
+      - name: Validate output contains file list
+        run: |
+          $output = & cmd /c "call ls.bat -a"
+          if ($output -notmatch "Directory of") {
+              Write-Error "ls.bat did not output expected directory listing"
+              exit 1
+          }
