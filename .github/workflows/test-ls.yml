@@ -16,8 +16,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install sed
-        run: choco install gnuwin32-sed -y
-
+        run: |
+          curl -LO https://github.com/mbuilov/sed-windows/releases/download/v4.8/sed-4.8-x64.zip
+          tar -xf sed-4.8-x64.zip -C C:\Windows\System32
 
 
       - name: Run ls.bat with -l flag
