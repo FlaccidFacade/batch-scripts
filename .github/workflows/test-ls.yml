@@ -15,6 +15,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Add repository root to PATH
+        run: echo "::add-path::%GITHUB_WORKSPACE%"
+
+      - name: Run ls.bat with -l flag
+        run: |
+          echo Testing -l flag
+          ls.bat -l
+
       - name: Run ls.bat with -l flag
         run: |
           echo Testing -l flag
@@ -22,7 +30,7 @@ jobs:
 
       - name: Validate output contains file list
         run: |
-          $output = & cmd /c "./ls.bat -l"
+          $output = & cmd /c "ls.bat -l"
           if ($output -notmatch "Directory of") {
               Write-Error "ls.bat did not output expected directory listing"
               exit 1
