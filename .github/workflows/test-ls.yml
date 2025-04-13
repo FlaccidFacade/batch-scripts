@@ -15,11 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install sed
-        run: |
-          curl -LO https://github.com/mbuilov/sed-windows/releases/download/v4.8/sed-4.8-x64.zip
-          Expand-Archive -Path sed-4.8-x64.zip -DestinationPath C:\Windows\System32
-
       - name: Run ls.bat with -l flag
         run: |
           echo Testing -l flag

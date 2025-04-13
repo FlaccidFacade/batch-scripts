@@ -30,7 +30,11 @@ if defined human_readable (
             for /f "tokens=1,2 delims= " %%B in ("%%A") do (
                 set "size=%%B"
                 call :convert_size !size!
-                echo %%A | sed "s/%%B bytes/!size!/"
+                :: With native batch (example)
+                set "line=%%A"
+                call set "line=%%line:%%B bytes=!size!%"
+                echo !line!
+
             )
         ) || echo %%A
     )
