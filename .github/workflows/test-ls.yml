@@ -29,7 +29,7 @@ jobs:
 
       - name: Validate output contains file list
         run: |
-          $output = & cmd /c ".\ls.bat -a"
+          $output = & cmd /c "ls -a"
           if ($output -notmatch "Directory of") {
               Write-Error "ls.bat did not output expected directory listing"
               exit 1
