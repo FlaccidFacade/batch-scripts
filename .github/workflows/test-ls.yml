@@ -17,7 +17,8 @@ jobs:
 
       - name: Add repository root to PATH
         run: |
-          echo "%GITHUB_WORKSPACE%" >> $GITHUB_PATH
+          echo "%GITHUB_WORKSPACE%" >> $env:GITHUB_PATH
+
       - name: Run ls.bat with -l flag
         run: |
           echo Testing -l flag
