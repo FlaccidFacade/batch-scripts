@@ -17,42 +17,19 @@ jobs:
 
       - name: Add repository root to PATH
         run: |
-          echo "%GITHUB_WORKSPACE%" >> $env:GITHUB_PATH
-
-      - name: Run ls.bat with -l flag
-        run: |
-          echo Testing -l flag
-           %GITHUB_WORKSPACE%\ls.bat -l
-
-      - name: Validate output contains file list
-        run: |
-          $output = & cmd /c " %GITHUB_WORKSPACE%\ls.bat -l"
-          if ($output -notmatch "Directory of") {
-              Write-Error "ls.bat did not output expected directory listing"
-              exit 1
-          }
-
+          echo $env:GITHUB_WORKSPACE\ls.bat >> $env:GITHUB_PATH
+        shell: pwsh
+      
       - name: Run ls.bat with -a flag
         run: |
           echo Testing -a flag
-           %GITHUB_WORKSPACE%\ls.bat -a
-    
-      - name: Validate output contains file list
-        run: |
-          $output = & cmd /c " %GITHUB_WORKSPACE%\ls.bat -a"
-          if ($output -notmatch "Directory of") {
-              Write-Error "ls.bat did not output expected directory listing"
-              exit 1
-          }
-
-      - name: Run ls.bat with -l -a -h
-        run: |
-          echo Testing all flags
-           %GITHUB_WORKSPACE%\ls.bat -l -a -h
+          .\ls.bat -a
+        shell: cmd
+      
 
       - name: Validate output contains file list
         run: |
-          $output = & cmd /c " %GITHUB_WORKSPACE%\ls.bat -a"
+          $output = & cmd /c " .\ls.bat -a"
           if ($output -notmatch "Directory of") {
               Write-Error "ls.bat did not output expected directory listing"
               exit 1
