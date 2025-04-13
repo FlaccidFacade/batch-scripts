@@ -32,7 +32,7 @@ jobs:
           $output = & cmd /c "ls -a"
           echo $output
           $normalizedOutput = $output -replace '\s+', ' '  # Normalize whitespace
-          if ($normalizedOutput -notmatch "Directory of") {
+          if ($normalizedOutput -notlike "*Directory of*") {
               Write-Error "ls.bat did not output expected directory listing"
               exit 1
           }
