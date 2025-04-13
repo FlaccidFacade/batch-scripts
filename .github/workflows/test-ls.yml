@@ -18,11 +18,11 @@ jobs:
       - name: Run ls.bat with -l flag
         run: |
           echo Testing -l flag
-          call ls.bat -l
+          ls.bat -l
 
       - name: Validate output contains file list
         run: |
-          $output = & cmd /c "call ls.bat -l"
+          $output = & cmd /c "ls.bat -l"
           if ($output -notmatch "Directory of") {
               Write-Error "ls.bat did not output expected directory listing"
               exit 1
@@ -31,11 +31,11 @@ jobs:
       - name: Run ls.bat with -a flag
         run: |
           echo Testing -a flag
-          call ls.bat -a
+          ls.bat -a
     
       - name: Validate output contains file list
         run: |
-          $output = & cmd /c "call ls.bat -a"
+          $output = & cmd /c "ls.bat -a"
           if ($output -notmatch "Directory of") {
               Write-Error "ls.bat did not output expected directory listing"
               exit 1
@@ -44,11 +44,11 @@ jobs:
       - name: Run ls.bat with -l -a -h
         run: |
           echo Testing all flags
-          call ls.bat -l -a -h
+          ls.bat -l -a -h
 
       - name: Validate output contains file list
         run: |
-          $output = & cmd /c "call ls.bat -a"
+          $output = & cmd /c "ls.bat -a"
           if ($output -notmatch "Directory of") {
               Write-Error "ls.bat did not output expected directory listing"
               exit 1
