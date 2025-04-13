@@ -1,0 +1,35 @@
+name: Test l.bat on Windows
+
+on:
+  push:
+    paths:
+      - 'l.bat'
+      - '.github/workflows/test-l.yml'
+  workflow_dispatch:
+
+jobs:
+  test-ls-bat:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add repository root to PATH
+        run: |
+          echo $env:GITHUB_WORKSPACE\l.bat >> $env:GITHUB_PATH
+        shell: pwsh
+      
+      - name: Run l.bat
+        run: |
+          echo Testing l.bat on Windows Command Prompt
+          .\l.bat
+        shell: cmd
+
+      - name: Validate output contains file list
+        run: |
+          $output = & cmd /c ".\l.bat"
+          if ($output -notmatch "Directory of") {
+              Write-Error "l.bat did not output expected directory listing"
+              exit 1
+          }
