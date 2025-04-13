@@ -34,3 +34,4 @@ jobs:
               Write-Error "ls.bat did not output expected directory listing"
               exit 1
           }
+        shell: pwsh
